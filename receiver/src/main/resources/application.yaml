@@ -5,8 +5,6 @@ spring:
   config:
     activate.on-profile: default
   application.name: ecommerce-receiver
-  docker:
-    compose.enabled: false
 
   cloud:
     function:
