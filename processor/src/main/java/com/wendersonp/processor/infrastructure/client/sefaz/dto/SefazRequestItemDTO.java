@@ -2,7 +2,6 @@ package com.wendersonp.processor.infrastructure.client.sefaz.dto;
 
 import com.wendersonp.processor.domain.dto.ItemFeesDTO;
 import com.wendersonp.receiver.domain.dto.ItemDTO;
-import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,7 +13,6 @@ import java.util.stream.Collectors;
 @EqualsAndHashCode
 @Getter
 @NoArgsConstructor
-@Builder
 public class SefazRequestItemDTO {
 
     private long sku;

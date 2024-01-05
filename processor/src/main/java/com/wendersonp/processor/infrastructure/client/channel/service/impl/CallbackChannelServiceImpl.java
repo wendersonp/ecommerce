@@ -21,7 +21,11 @@ public class CallbackChannelServiceImpl implements OrderCallbackChannelService {
             channelClient.communicateInvoice(invoice);
         } catch (FeignException exception) {
             log.error("Erro ao comunicar invoice com o número de pedido {}", invoice.getNumeroPedido(), exception);
-            throw new ChannelCallbackException(exception.getMessage(), exception.getCause());
+            throw new ChannelCallbackException(
+                    exception.getMessage(),
+                    exception.getCause(),
+                    exception.contentUTF8()
+            );
         }
     }
 }

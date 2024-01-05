@@ -21,6 +21,7 @@ public class FailedSaleOrderFactoryImpl implements SaleOrderEntityFactory {
     private final RuntimeException exception;
 
     private static final int MOTIVO_LIMIT = 255;
+    private static final String RESPONSE_BODY = "response-body: ";
 
     @Override
     public SaleOrderEntity create() {
@@ -43,23 +44,31 @@ public class FailedSaleOrderFactoryImpl implements SaleOrderEntityFactory {
     private String buildMotivo() {
         StringBuilder stringBuilder = new StringBuilder();
 
-        if (exception instanceof FeeProcessingException){
+        if (exception instanceof FeeProcessingException feeProcessingException){
             stringBuilder.append("error: FeeProcessingException; ");
-        } else if (exception instanceof InvoiceProcessingException) {
+            stringBuilder.append(RESPONSE_BODY).append(feeProcessingException.getResponseBody()).append("; ");
+        } else if (exception instanceof InvoiceProcessingException invoiceProcessingException) {
             stringBuilder.append("error: InvoiceProcessingException; ");
-        } else if (exception instanceof ChannelCallbackException) {
+            stringBuilder.append(RESPONSE_BODY).append(invoiceProcessingException.getResponseBody()).append("; ");
+        } else if (exception instanceof ChannelCallbackException channelCallbackException) {
             stringBuilder.append("error: ChannelCallbackException; ");
+            stringBuilder.append(RESPONSE_BODY).append(channelCallbackException.getResponseBody()).append("; ");
         } else {
             stringBuilder.append("error: ")
-                    .append(exception.getCause().getClass().getSimpleName());
+                    .append(exception.getClass().getSimpleName()).append("; ");
         }
 
-        stringBuilder.append("cause: ")
-                .append(exception.getCause().getMessage()).append("; ");
+        stringBuilder.append("message: ")
+                .append(exception.getMessage()).append("; ");
 
-        stringBuilder.append("stackTrace: ")
+        stringBuilder.append("stack-trace: ")
                 .append(Arrays.toString(exception.getStackTrace())).append(";");
 
-        return stringBuilder.substring(0, MOTIVO_LIMIT);
+        var reason = stringBuilder.toString();
+        return trimStringToLimit(reason);
+    }
+
+    private String trimStringToLimit(String string) {
+        return string.length() < MOTIVO_LIMIT ? string : string.substring(0, MOTIVO_LIMIT);
     }
 }

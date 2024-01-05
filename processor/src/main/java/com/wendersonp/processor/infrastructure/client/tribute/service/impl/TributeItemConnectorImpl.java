@@ -23,7 +23,11 @@ public class TributeItemConnectorImpl implements TributeItemConnector {
             return client.getItemFee(sku);
         } catch (FeignException exception) {
             log.error("Erro processando tributo, sku: {}", sku, exception.getCause());
-            throw new FeeProcessingException(exception.getMessage(), exception.getCause());
+            throw new FeeProcessingException(
+                    exception.getMessage(),
+                    exception.getCause(),
+                    exception.contentUTF8()
+            );
         }
     }
 }

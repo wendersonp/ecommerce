@@ -1,0 +1,23 @@
+[
+  {
+    "sku": 324226428,
+    "valorIcms": 38,
+    "valorPis": 12,
+    "valorDifaul": 9,
+    "valorFcpIcms": 58
+  },
+  {
+    "sku": 286441499,
+    "valorIcms": 29,
+    "valorPis": 53,
+    "valorDifaul": 90,
+    "valorFcpIcms": 49
+  },
+  {
+    "sku": 183675297,
+    "valorIcms": 82,
+    "valorPis": 58,
+    "valorDifaul": 69,
+    "valorFcpIcms": 24
+  }
+]

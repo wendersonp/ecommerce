@@ -29,7 +29,11 @@ public class SefazInvoiceServiceImpl implements InvoiceService {
             return response.toInvoiceDTO(order);
         } catch (FeignException exception) {
             log.error("Erro processando ordem no SEFAZ", exception);
-            throw new InvoiceProcessingException(exception.getMessage(), exception.getCause());
+            throw new InvoiceProcessingException(
+                    exception.getMessage(),
+                    exception.getCause(),
+                    exception.contentUTF8()
+            );
         }
     }
 }
