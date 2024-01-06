@@ -8,6 +8,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,7 +31,8 @@ import java.time.LocalDateTime;
 public class SaleOrderEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "venda_seq_gen")
+    @SequenceGenerator(name = "venda_seq_gen", allocationSize = 1, sequenceName = "venda_seq")
     @Column(nullable = false, columnDefinition = "DECIMAL(38, 0)")
     private BigInteger id;
 
@@ -69,7 +71,7 @@ public class SaleOrderEntity {
     private String chaveNfe;
 
     @Column(columnDefinition = "DECIMAL(38,0)")
-    private String numeroNota;
+    private BigInteger numeroNota;
 
     private LocalDateTime dataEmissao;
 

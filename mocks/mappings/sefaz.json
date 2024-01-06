@@ -1,0 +1,19 @@
+{
+    "request": {
+      "method": "POST",
+      "url": "/authorize"
+    },
+    "response": {
+      "status": 200,
+      "jsonBody": {
+        "nfeKey": "{{randomValue length=44 type='NUMERIC'}}",
+        "invoiceNumber": "{{randomValue length=7 type='NUMERIC'}}",
+        "issuanceDate": "{{now offset='5 seconds' timezone='Brazil/East' format='yyyy-MM-dd'}}T{{now offset='5 seconds' timezone='Brazil/East' format='HH:mm:ss.SSS'}}",
+        "invoice": "{{base64 (randomValue length=20 type='ALPHANUMERIC_AND_SYMBOLS')}}"
+      },
+      "transformers": ["response-template"],
+      "headers": {
+        "Content-Type": "application/json"
+      }
+    }
+  }

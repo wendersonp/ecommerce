@@ -29,7 +29,7 @@ public class SuccessfulSaleOrderFactoryImpl implements SaleOrderEntityFactory {
                 .vendaRequest(Util.parseToJson(order))
                 .dataRequisicao(order.getOrdemPedido().getDataAutorizacao())
                 .chaveNfe(invoiceDTO.getChaveNFE())
-                .numeroNota(invoiceDTO.getNumeroNota())
+                .numeroNota(new BigInteger(invoiceDTO.getNumeroNota()))
                 .dataEmissao(invoiceDTO.getDataEmissao())
                 .pdf(invoiceDTO.getPdf())
                 .situacao(invoiceDTO.getStatus())

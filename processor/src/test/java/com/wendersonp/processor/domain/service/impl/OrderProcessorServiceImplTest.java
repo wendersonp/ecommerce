@@ -160,7 +160,7 @@ class OrderProcessorServiceImplTest {
         assertEquals(Util.parseToJson(order), entity.getVendaRequest());
         assertEquals(order.getOrdemPedido().getDataAutorizacao(), entity.getDataRequisicao());
         assertEquals(invoice.getChaveNFE(), entity.getChaveNfe());
-        assertEquals(invoice.getNumeroNota(), entity.getNumeroNota());
+        assertEquals(new BigInteger(invoice.getNumeroNota()), entity.getNumeroNota());
         assertEquals(invoice.getDataEmissao(), entity.getDataEmissao());
         assertEquals(invoice.getPdf(), entity.getPdf());
         assertNull(entity.getMotivo());

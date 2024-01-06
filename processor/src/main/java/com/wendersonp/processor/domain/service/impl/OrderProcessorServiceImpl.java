@@ -13,8 +13,10 @@ import com.wendersonp.processor.domain.service.OrderProcessorService;
 import com.wendersonp.processor.domain.service.SaleOrderPersistenceService;
 import com.wendersonp.receiver.domain.dto.OrderDTO;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class OrderProcessorServiceImpl implements OrderProcessorService {
@@ -38,6 +40,7 @@ public class OrderProcessorServiceImpl implements OrderProcessorService {
             orderCallbackChannelService.communicateSuccessfulOrder(invoice);
 
             persistSuccessfulOrder(order, invoice);
+            log.info("situacao: {}; pedido: {}", invoice.getStatus(), order.getOrdemPedido().getNumeroPedido());
         } catch (RuntimeException exception) {
             persistFailedOrder(order, exception);
             throw exception;

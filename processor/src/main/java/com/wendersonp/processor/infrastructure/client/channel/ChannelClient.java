@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 @FeignClient(name = "channel-client", url = "${client.external.channel-url}", configuration = FeignConfiguration.class)
 public interface ChannelClient {
 
-    @PostMapping(value = "/callback-venda", consumes = "text/plain")
+    @PostMapping(value = "/callback-venda", produces = "text/plain")
     String communicateInvoice(@RequestBody InvoiceDTO invoice);
 }
