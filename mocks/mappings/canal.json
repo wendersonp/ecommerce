@@ -1,0 +1,14 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/callback-venda",
+    "bodyPatterns": [ {
+      "matchesJsonPath": "$.numeroOrdemExterno"
+    } ]
+  },
+  "response": {
+    "status": 200,
+    "body": "Venda {{jsonPath request.body '$.numeroOrdemExterno'}} realizada com sucesso",
+    "transformers": ["response-template"]
+  }
+}

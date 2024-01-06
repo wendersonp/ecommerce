@@ -1,0 +1,19 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPathPattern": "/tributo",
+    "queryParameters": {
+      "sku": {
+        "matches": "(\\d){9}"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": "{ \"sku\": {{request.query.sku}}, \"valorIcms\": {{randomInt lower=0 upper=99}}, \"valorPis\": {{randomInt lower=0 upper=99}}, \"valorDifaul\": {{randomInt lower=0 upper=99}}, \"valorFcpIcms\": {{randomInt lower=0 upper=99}} }",
+    "transformers": ["response-template"],
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

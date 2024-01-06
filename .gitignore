@@ -35,3 +35,6 @@ build/
 /receiver/mvnw.cmd
 /receiver/mvnw
 /receiver/.mvn/
+/processor/mvnw.cmd
+/processor/mvnw
+/processor/.mvn/

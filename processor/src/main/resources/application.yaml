@@ -1,0 +1,64 @@
+
+server.port: 8090
+
+spring:
+  config:
+    activate.on-profile: default
+  application.name: ecommerce-processor
+
+#redis
+  data:
+    redis:
+      database: 0
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+
+#postgresql
+  jpa:
+    database: POSTGRESQL
+    hibernate.ddl-auto: none
+
+  sql:
+    init:
+      mode: always
+
+  datasource:
+    url: jdbc:postgresql://${POSTGRESQL_HOST:localhost}:${POSTGRESQL_PORT:5432}/ecommerce
+    username: ${POSTGRESQL_USER:user}
+    password: ${POSTGRESQL_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      connectionTimeout: 30000
+      idleTimeout: 10000
+      maxLifetime: 60000
+      maximumPoolSize: 8
+      leakDetectionThreshold: 60000
+
+#rabbitmq
+  cloud:
+    function:
+      definition: orderMessageConsumer
+    stream:
+      bindings:
+        orderMessageConsumer-in-0:
+          destination: autorizar-venda-queue
+          group: ${application.name}
+          binder: rabbit
+      binders:
+        rabbit:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                host: ${RABBITMQ_HOST:localhost}
+                port: 5672
+                username: ${RABBITMQ_USERNAME:guest}
+                password: ${RABBITMQ_PASSWORD:guest}
+                virtual-host: /
+
+#urls
+client:
+  external:
+    tribute-item-url: ${TRIBUTE_ITEM_URL:http://localhost:9000}
+    sefaz-url: ${SEFAZ_URL:http://localhost:9000}
+    channel-url: ${CHANNEL_URL:http://localhost:9000}

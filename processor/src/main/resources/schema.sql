@@ -1,0 +1,29 @@
+CREATE TABLE IF NOT EXISTS VENDA
+(
+    ID                       DECIMAL(38, 0) NOT NULL,
+    CANAL                    VARCHAR(100) NOT NULL,
+    CODIGO_EMPRESA           INTEGER       NOT NULL,
+    CODIGO_LOJA              INTEGER       NOT NULL,
+    NUMERO_PDV               INTEGER       NOT NULL,
+    NUMERO_PEDIDO            VARCHAR(38)  NOT NULL,
+    NUMERO_ORDEM_EXTERNO     VARCHAR(38)  NOT NULL,
+    VALOR_TOTAL              DECIMAL(38, 2) NOT NULL,
+    QTD_ITEM                 DECIMAL(38,0)  NOT NULL,
+    VENDA_REQUEST            CLOB          NOT NULL,
+    DATA_ATUALIZACAO         TIMESTAMP     NOT NULL,
+    DATA_REQUISICAO          TIMESTAMP     NOT NULL,
+    CHAVE_NFE                VARCHAR(44),
+    NUMERO_NOTA              DECIMAL(38,0),
+    DATA_EMISSAO             TIMESTAMP,
+    PDF                      CLOB,
+    SITUACAO                 VARCHAR(100) NOT NULL,
+    MOTIVO                   VARCHAR(255),
+    CONSTRAINT PK_DEVOLUCAO_PEDIDO PRIMARY KEY (ID)
+)
+TABLESPACE ECOMMERCE_DAT;
+
+CREATE SEQUENCE IF NOT EXISTS VENDA_SEQ
+    START 1
+    INCREMENT 1
+    MINVALUE 1
+    CACHE 20;

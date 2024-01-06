@@ -5,12 +5,13 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.wendersonp</groupId>
     <artifactId>ecommerce</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.2.0</version>
     <packaging>pom</packaging>
 
 
     <modules>
         <module>receiver</module>
+        <module>processor</module>
     </modules>
 
 </project>

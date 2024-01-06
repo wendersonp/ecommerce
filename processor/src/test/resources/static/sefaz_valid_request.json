@@ -1,0 +1,48 @@
+{
+  "orderNumber": "101628208632",
+  "externalOrderNumber": "100423672693-1",
+  "customer": {
+    "id": "123456",
+    "name": "Givaldo Santos Vasconcelos",
+    "document": "70420816097",
+    "documentType": "CPF",
+    "personType": "F",
+    "address": "Travessa Francisco Vieira",
+    "addressNumber": "11",
+    "addressComplement": "Apto 405",
+    "district": "Trapiche da Barra",
+    "city": "Maceió",
+    "state": "AL",
+    "country": "BR",
+    "zipCode": "57010460",
+    "ibgeCode": "7162435",
+    "phoneNumber": "(82) 36774-7713",
+    "email": "givaldo.santos.vasconcelos@gmail.com"
+  },
+  "products": [{
+    "sku": 324226428,
+    "amount": 3,
+    "value": 56.91,
+    "icmsValue": 38,
+    "pisValue": 12,
+    "difaulValue": 9,
+    "fcpIcmsValue": 58
+  }, {
+    "sku": 286441499,
+    "amount": 2,
+    "value": 79.90,
+    "icmsValue": 29,
+    "pisValue": 53,
+    "difaulValue": 90,
+    "fcpIcmsValue": 49
+  }, {
+    "sku": 183675297,
+    "amount": 1,
+    "value": 56.91,
+    "icmsValue": 82,
+    "pisValue": 58,
+    "difaulValue": 69,
+    "fcpIcmsValue": 24
+  }
+  ]
+}
