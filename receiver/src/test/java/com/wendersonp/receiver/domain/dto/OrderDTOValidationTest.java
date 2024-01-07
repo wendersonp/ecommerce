@@ -9,6 +9,7 @@ import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
@@ -266,7 +267,7 @@ class OrderDTOValidationTest {
 
     @Test
     void invalidOrderTotalItemsTest() {
-        invalidOrderDTO.setTotalItens(0);
+        invalidOrderDTO.setTotalItens(BigInteger.ZERO);
         var constraints = validator.validate(invalidOrderDTO);
         List<String> invalidFields = constraints
                 .stream()
@@ -277,7 +278,7 @@ class OrderDTOValidationTest {
 
     @Test
     void invalidOrderItemsQuantityTest() {
-        invalidOrderDTO.setQuantidadeItens(0);
+        invalidOrderDTO.setQuantidadeItens(BigInteger.ZERO);
         var constraints = validator.validate(invalidOrderDTO);
         List<String> invalidFields = constraints
                 .stream()

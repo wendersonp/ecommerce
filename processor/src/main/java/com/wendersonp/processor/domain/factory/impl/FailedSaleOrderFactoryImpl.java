@@ -10,7 +10,6 @@ import com.wendersonp.processor.domain.util.Util;
 import com.wendersonp.receiver.domain.dto.OrderDTO;
 import lombok.RequiredArgsConstructor;
 
-import java.math.BigInteger;
 import java.util.Arrays;
 
 @RequiredArgsConstructor
@@ -32,8 +31,8 @@ public class FailedSaleOrderFactoryImpl implements SaleOrderEntityFactory {
                 .numeroPdv(order.getPdv())
                 .numeroPedido(order.getOrdemPedido().getNumeroPedido())
                 .numeroOrdemExterno(order.getOrdemPedido().getNumeroOrdemExterno())
-                .valorTotal(Util.parseAndDivideByHundred(order.getTotalItens()))
-                .qtdItem(BigInteger.valueOf(order.getQuantidadeItens()))
+                .valorTotal(Util.divideByHundred(order.getTotalItens()))
+                .qtdItem(order.getQuantidadeItens())
                 .vendaRequest(Util.parseToJson(order))
                 .dataRequisicao(order.getOrdemPedido().getDataAutorizacao())
                 .situacao(OrderStatusEnum.ERRO)

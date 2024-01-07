@@ -5,6 +5,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.SneakyThrows;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.math.RoundingMode;
 
 public class Util {
@@ -13,9 +14,8 @@ public class Util {
 
     private static final ObjectMapper mapper = createMapper();
 
-    public static BigDecimal parseAndDivideByHundred(int totalItens) {
-        return BigDecimal
-                .valueOf(totalItens)
+    public static BigDecimal divideByHundred(BigInteger totalItens) {
+        return new BigDecimal(totalItens)
                 .divide(BigDecimal.valueOf(100), 2, RoundingMode.HALF_EVEN);
     }
 

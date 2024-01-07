@@ -1,7 +1,9 @@
 package com.wendersonp.receiver.domain.service.impl;
 
+import com.wendersonp.receiver.domain.dto.ItemDTO;
 import com.wendersonp.receiver.domain.dto.OrderDTO;
 import com.wendersonp.receiver.domain.dto.OrderResponseStatusDTO;
+import com.wendersonp.receiver.domain.dto.fixture.Fixture;
 import com.wendersonp.receiver.domain.enumeration.RequestStatusEnum;
 import com.wendersonp.receiver.domain.exceptions.TotalValueNotValidException;
 import com.wendersonp.receiver.domain.service.SendOrderService;
@@ -35,22 +37,30 @@ class ReceiveOrderServiceImplTest {
     @DisplayName("send order to messaging and return with success")
     void validateAndSend() {
         OrderDTO order = factory.manufacturePojo(OrderDTO.class);
+        order.setItens(new Fixture<ItemDTO>().listFromFile("static/items_valid.json", ItemDTO.class));
         order.setTotalItens(service.calculateTotal(order));
+
         doNothing().when(sendOrderService).sendToStream(argThat(orderInArgument -> {
             assertEquals(order, orderInArgument);
             return true;
         }));
-        var response = service.validateAndSend(order);
-        assertEquals(
-                new OrderResponseStatusDTO(RequestStatusEnum.EM_PROCESSAMENTO, LocalDateTime.now()),
-                response
-        );
+
+        LocalDateTime now = LocalDateTime.now();
+        var response = service.validateAndSend(order, now);
+        var expected = new OrderResponseStatusDTO(RequestStatusEnum.EM_PROCESSAMENTO, now);
+
+        assertEquals(response, expected);
     }
 
     @Test
     @DisplayName("must throw exception when total item value not valid")
     void validateAndSendTotalItensException() {
         OrderDTO order = factory.manufacturePojo(OrderDTO.class);
-        assertThrows(TotalValueNotValidException.class, () -> service.validateAndSend(order));
+        order.setItens(new Fixture<ItemDTO>().listFromFile("static/items_valid.json", ItemDTO.class));
+
+        LocalDateTime now = LocalDateTime.now();
+
+        assertThrows(TotalValueNotValidException.class, () -> service.validateAndSend(order, now));
     }
+
 }

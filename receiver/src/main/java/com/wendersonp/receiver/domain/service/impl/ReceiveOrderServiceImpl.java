@@ -9,6 +9,7 @@ import com.wendersonp.receiver.domain.service.SendOrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 
 @Service
@@ -17,25 +18,29 @@ public class ReceiveOrderServiceImpl implements ReceiveOrderService {
 
     private final SendOrderService sender;
     @Override
-    public OrderResponseStatusDTO validateAndSend(OrderDTO order) {
+    public OrderResponseStatusDTO validateAndSend(OrderDTO order, LocalDateTime date) {
         validateOrder(order);
         sender.sendToStream(order);
-        return new OrderResponseStatusDTO(RequestStatusEnum.EM_PROCESSAMENTO, LocalDateTime.now());
+        return new OrderResponseStatusDTO(RequestStatusEnum.EM_PROCESSAMENTO, date);
     }
 
     @Override
     public void validateOrder(OrderDTO order) {
-        if (order.getTotalItens() != calculateTotal(order)) {
+        if (!order.getTotalItens().equals(calculateTotal(order))) {
             throw new TotalValueNotValidException();
         }
     }
 
-    public int calculateTotal(OrderDTO orderDTO) {
+    public BigInteger calculateTotal(OrderDTO orderDTO) {
         return orderDTO.getItens()
                 .stream()
-                .reduce(0,
-                        (subtotal, item) -> subtotal + item.getQuantidade() * item.getValor(),
-                        Integer::sum
+                .reduce(BigInteger.ZERO,
+                        (subtotal, item) ->
+                                BigInteger
+                                        .valueOf(item.getValor())
+                                        .multiply(BigInteger.valueOf(item.getQuantidade()))
+                                        .add(subtotal),
+                        BigInteger::add
                 );
     }
 }

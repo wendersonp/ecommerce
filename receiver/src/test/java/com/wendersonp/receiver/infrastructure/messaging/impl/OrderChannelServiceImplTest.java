@@ -37,7 +37,7 @@ class OrderChannelServiceImplTest {
         var order = factory.manufacturePojo(OrderDTO.class);
         service.sendOrder(order);
         verify(orderQueue, times(1)).offer(any());
-        Supplier<OrderDTO> supplier = service.orderMessageSupplier();
+        Supplier<OrderDTO> supplier = service.autorizarVendaQueue();
         assertEquals(supplier.get(), order);
     }
 }

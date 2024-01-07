@@ -155,8 +155,8 @@ class OrderProcessorServiceImplTest {
         assertEquals(order.getPdv(), entity.getNumeroPdv());
         assertEquals(order.getOrdemPedido().getNumeroPedido(), entity.getNumeroPedido());
         assertEquals(order.getOrdemPedido().getNumeroOrdemExterno(), entity.getNumeroOrdemExterno());
-        assertEquals(Util.parseAndDivideByHundred(order.getTotalItens()), entity.getValorTotal());
-        assertEquals(BigInteger.valueOf(order.getQuantidadeItens()), entity.getQtdItem());
+        assertEquals(Util.divideByHundred(order.getTotalItens()), entity.getValorTotal());
+        assertEquals(order.getQuantidadeItens(), entity.getQtdItem());
         assertEquals(Util.parseToJson(order), entity.getVendaRequest());
         assertEquals(order.getOrdemPedido().getDataAutorizacao(), entity.getDataRequisicao());
         assertEquals(invoice.getChaveNFE(), entity.getChaveNfe());
@@ -174,8 +174,8 @@ class OrderProcessorServiceImplTest {
         assertEquals(order.getPdv(), entity.getNumeroPdv());
         assertEquals(order.getOrdemPedido().getNumeroPedido(), entity.getNumeroPedido());
         assertEquals(order.getOrdemPedido().getNumeroOrdemExterno(), entity.getNumeroOrdemExterno());
-        assertEquals(Util.parseAndDivideByHundred(order.getTotalItens()), entity.getValorTotal());
-        assertEquals(BigInteger.valueOf(order.getQuantidadeItens()), entity.getQtdItem());
+        assertEquals(Util.divideByHundred(order.getTotalItens()), entity.getValorTotal());
+        assertEquals(order.getQuantidadeItens(), entity.getQtdItem());
         assertEquals(Util.parseToJson(order), entity.getVendaRequest());
         assertEquals(order.getOrdemPedido().getDataAutorizacao(), entity.getDataRequisicao());
         assertNull(entity.getChaveNfe());
@@ -193,8 +193,8 @@ class OrderProcessorServiceImplTest {
         assertEquals(order.getPdv(), entity.getNumeroPdv());
         assertEquals(order.getOrdemPedido().getNumeroPedido(), entity.getNumeroPedido());
         assertEquals(order.getOrdemPedido().getNumeroOrdemExterno(), entity.getNumeroOrdemExterno());
-        assertEquals(Util.parseAndDivideByHundred(order.getTotalItens()), entity.getValorTotal());
-        assertEquals(BigInteger.valueOf(order.getQuantidadeItens()), entity.getQtdItem());
+        assertEquals(Util.divideByHundred(order.getTotalItens()), entity.getValorTotal());
+        assertEquals(order.getQuantidadeItens(), entity.getQtdItem());
         assertEquals(Util.parseToJson(order), entity.getVendaRequest());
         assertEquals(order.getOrdemPedido().getDataAutorizacao(), entity.getDataRequisicao());
         assertNull(entity.getChaveNfe());
