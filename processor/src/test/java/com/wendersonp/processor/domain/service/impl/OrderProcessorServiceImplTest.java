@@ -21,9 +21,11 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigInteger;
+import java.time.Clock;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -43,6 +45,9 @@ class OrderProcessorServiceImplTest {
 
     @Mock
     private SaleOrderPersistenceService persistenceService;
+
+    @Spy
+    private Clock clock = Clock.systemDefaultZone();
 
     @InjectMocks
     private OrderProcessorServiceImpl processorService;

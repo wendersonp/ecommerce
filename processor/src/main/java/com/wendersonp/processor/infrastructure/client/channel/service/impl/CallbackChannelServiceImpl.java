@@ -3,7 +3,7 @@ package com.wendersonp.processor.infrastructure.client.channel.service.impl;
 import com.wendersonp.processor.domain.dto.InvoiceDTO;
 import com.wendersonp.processor.domain.exception.ChannelCallbackException;
 import com.wendersonp.processor.domain.service.OrderCallbackChannelService;
-import com.wendersonp.processor.infrastructure.client.channel.ChannelClient;
+import com.wendersonp.processor.infrastructure.client.channel.CallbackChannelClient;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class CallbackChannelServiceImpl implements OrderCallbackChannelService {
 
-    private final ChannelClient channelClient;
+    private final CallbackChannelClient channelClient;
     @Override
     public void communicateSuccessfulOrder(InvoiceDTO invoice) {
         try {

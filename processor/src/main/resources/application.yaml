@@ -37,10 +37,10 @@ spring:
 #rabbitmq
   cloud:
     function:
-      definition: orderMessageConsumer
+      definition: autorizarVendaQueue
     stream:
       bindings:
-        orderMessageConsumer-in-0:
+        autorizarVendaQueue-in-0:
           destination: autorizar-venda-queue
           group: ${application.name}
           binder: rabbit
@@ -62,3 +62,39 @@ client:
     tribute-item-url: ${TRIBUTE_ITEM_URL:http://localhost:9000}
     sefaz-url: ${SEFAZ_URL:http://localhost:9000}
     channel-url: ${CHANNEL_URL:http://localhost:9000}
+
+---
+
+spring:
+  config:
+    activate.on-profile: test
+  jpa:
+    hibernate.ddl-auto: create-drop
+
+  sql:
+    init:
+      mode: NEVER
+
+  datasource:
+    url: jdbc:h2:mem:testdb;MODE=POSTGRESQL
+    username: user
+
+  cache:
+    type: NONE
+
+  cloud:
+    function:
+      definition: autorizarVendaQueue
+    stream:
+      bindings:
+        autorizarVendaQueue-in-0:
+          consumer:
+            maxAttempts: 1
+
+
+#urls
+client:
+  external:
+    tribute-item-url: http://localhost:9000
+    sefaz-url: localhost:9000
+    channel-url: http://localhost:9000

@@ -16,6 +16,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.Clock;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -28,6 +30,8 @@ public class OrderProcessorServiceImpl implements OrderProcessorService {
     private final OrderCallbackChannelService orderCallbackChannelService;
 
     private final SaleOrderPersistenceService persistenceService;
+
+    private final Clock clock;
 
     @Override
     public void process(OrderDTO order) {
@@ -48,13 +52,13 @@ public class OrderProcessorServiceImpl implements OrderProcessorService {
     }
 
     private void persistSuccessfulOrder(OrderDTO order, InvoiceDTO invoice) {
-        SaleOrderEntityFactory factory = new SuccessfulSaleOrderFactoryImpl(order, invoice);
+        SaleOrderEntityFactory factory = new SuccessfulSaleOrderFactoryImpl(order, invoice, clock);
         SaleOrderEntity entity = factory.create();
         persistenceService.save(entity);
     }
 
     private void persistFailedOrder(OrderDTO order, RuntimeException exception) {
-        SaleOrderEntityFactory factory = new FailedSaleOrderFactoryImpl(order, exception);
+        SaleOrderEntityFactory factory = new FailedSaleOrderFactoryImpl(order, exception, clock);
         SaleOrderEntity entity = factory.create();
         persistenceService.save(entity);
     }

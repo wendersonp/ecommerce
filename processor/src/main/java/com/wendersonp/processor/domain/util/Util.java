@@ -1,6 +1,7 @@
 package com.wendersonp.processor.domain.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.SneakyThrows;
 
@@ -27,6 +28,7 @@ public class Util {
     private static ObjectMapper createMapper() {
         var mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
+        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         return mapper;
     }
 }

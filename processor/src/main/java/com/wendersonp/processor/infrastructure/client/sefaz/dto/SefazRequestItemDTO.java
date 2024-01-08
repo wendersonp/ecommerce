@@ -15,16 +15,16 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class SefazRequestItemDTO {
 
-    private long sku;
-    private int amount;
-    private double value;
-    private int icmsValue;
-    private int pisValue;
-    private int difaulValue;
-    private int fcpIcmsValue;
+    private Long sku;
+    private Integer amount;
+    private Double value;
+    private Integer icmsValue;
+    private Integer pisValue;
+    private Integer difaulValue;
+    private Integer fcpIcmsValue;
 
     public SefazRequestItemDTO(ItemDTO item, ItemFeesDTO fees) {
-        this.sku = item.getSku();
+        this.sku = Long.valueOf(item.getSku());
         this.amount = item.getQuantidade();
         this.value = ((double) item.getValor()) / 100;
         this.icmsValue = fees.getValorIcms();

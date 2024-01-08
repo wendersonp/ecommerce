@@ -20,7 +20,7 @@ public class OrderMessageConsumeServiceImpl implements OrderMessageConsumeServic
     }
 
     @Bean
-    public Consumer<OrderDTO> orderMessageConsumer() {
+    public Consumer<OrderDTO> autorizarVendaQueue() {
         return this::consumeOrder;
     }
 }

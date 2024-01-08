@@ -15,7 +15,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -60,7 +59,6 @@ public class SaleOrderEntity {
     @Column(nullable = false, columnDefinition = "CLOB")
     private String vendaRequest;
 
-    @UpdateTimestamp
     @Column(nullable = false)
     private LocalDateTime dataAtualizacao;
 

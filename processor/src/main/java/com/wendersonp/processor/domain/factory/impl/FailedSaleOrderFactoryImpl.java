@@ -10,6 +10,8 @@ import com.wendersonp.processor.domain.util.Util;
 import com.wendersonp.receiver.domain.dto.OrderDTO;
 import lombok.RequiredArgsConstructor;
 
+import java.time.Clock;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 
 @RequiredArgsConstructor
@@ -18,6 +20,8 @@ public class FailedSaleOrderFactoryImpl implements SaleOrderEntityFactory {
     private final OrderDTO order;
 
     private final RuntimeException exception;
+
+    private final Clock clock;
 
     private static final int MOTIVO_LIMIT = 255;
     private static final String RESPONSE_BODY = "response-body: ";
@@ -32,6 +36,7 @@ public class FailedSaleOrderFactoryImpl implements SaleOrderEntityFactory {
                 .numeroPedido(order.getOrdemPedido().getNumeroPedido())
                 .numeroOrdemExterno(order.getOrdemPedido().getNumeroOrdemExterno())
                 .valorTotal(Util.divideByHundred(order.getTotalItens()))
+                .dataAtualizacao(LocalDateTime.now(clock))
                 .qtdItem(order.getQuantidadeItens())
                 .vendaRequest(Util.parseToJson(order))
                 .dataRequisicao(order.getOrdemPedido().getDataAutorizacao())
@@ -42,22 +47,23 @@ public class FailedSaleOrderFactoryImpl implements SaleOrderEntityFactory {
 
     private String buildMotivo() {
         StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(String.format("Venda %s recebida com erro; ", order.getOrdemPedido().getNumeroOrdemExterno()));
 
         if (exception instanceof FeeProcessingException feeProcessingException){
-            stringBuilder.append("error: FeeProcessingException; ");
+            stringBuilder.append("erro: FeeProcessingException; ");
             stringBuilder.append(RESPONSE_BODY).append(feeProcessingException.getResponseBody()).append("; ");
         } else if (exception instanceof InvoiceProcessingException invoiceProcessingException) {
-            stringBuilder.append("error: InvoiceProcessingException; ");
+            stringBuilder.append("erro: InvoiceProcessingException; ");
             stringBuilder.append(RESPONSE_BODY).append(invoiceProcessingException.getResponseBody()).append("; ");
         } else if (exception instanceof ChannelCallbackException channelCallbackException) {
-            stringBuilder.append("error: ChannelCallbackException; ");
+            stringBuilder.append("erro: ChannelCallbackException; ");
             stringBuilder.append(RESPONSE_BODY).append(channelCallbackException.getResponseBody()).append("; ");
         } else {
-            stringBuilder.append("error: ")
+            stringBuilder.append("erro: ")
                     .append(exception.getClass().getSimpleName()).append("; ");
         }
 
-        stringBuilder.append("message: ")
+        stringBuilder.append("mensagem: ")
                 .append(exception.getMessage()).append("; ");
 
         stringBuilder.append("stack-trace: ")
