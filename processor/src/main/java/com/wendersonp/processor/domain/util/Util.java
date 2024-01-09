@@ -1,10 +1,12 @@
 package com.wendersonp.processor.domain.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.SneakyThrows;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.math.RoundingMode;
 
 public class Util {
@@ -13,9 +15,8 @@ public class Util {
 
     private static final ObjectMapper mapper = createMapper();
 
-    public static BigDecimal parseAndDivideByHundred(int totalItens) {
-        return BigDecimal
-                .valueOf(totalItens)
+    public static BigDecimal divideByHundred(BigInteger totalItens) {
+        return new BigDecimal(totalItens)
                 .divide(BigDecimal.valueOf(100), 2, RoundingMode.HALF_EVEN);
     }
 
@@ -27,6 +28,7 @@ public class Util {
     private static ObjectMapper createMapper() {
         var mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
+        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         return mapper;
     }
 }

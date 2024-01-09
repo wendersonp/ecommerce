@@ -8,6 +8,8 @@ import com.wendersonp.receiver.domain.dto.OrderDTO;
 import lombok.RequiredArgsConstructor;
 
 import java.math.BigInteger;
+import java.time.Clock;
+import java.time.LocalDateTime;
 
 @RequiredArgsConstructor
 public class SuccessfulSaleOrderFactoryImpl implements SaleOrderEntityFactory {
@@ -15,6 +17,9 @@ public class SuccessfulSaleOrderFactoryImpl implements SaleOrderEntityFactory {
     private final OrderDTO order;
 
     private final InvoiceDTO invoiceDTO;
+
+    private final Clock clock;
+
     @Override
     public SaleOrderEntity create() {
         return SaleOrderEntity.builder()
@@ -24,8 +29,9 @@ public class SuccessfulSaleOrderFactoryImpl implements SaleOrderEntityFactory {
                 .numeroPdv(order.getPdv())
                 .numeroPedido(invoiceDTO.getNumeroPedido())
                 .numeroOrdemExterno(invoiceDTO.getNumeroOrdemExterno())
-                .valorTotal(Util.parseAndDivideByHundred(order.getTotalItens()))
-                .qtdItem(BigInteger.valueOf(order.getQuantidadeItens()))
+                .valorTotal(Util.divideByHundred(order.getTotalItens()))
+                .qtdItem(order.getQuantidadeItens())
+                .dataAtualizacao(LocalDateTime.now(clock))
                 .vendaRequest(Util.parseToJson(order))
                 .dataRequisicao(order.getOrdemPedido().getDataAutorizacao())
                 .chaveNfe(invoiceDTO.getChaveNFE())

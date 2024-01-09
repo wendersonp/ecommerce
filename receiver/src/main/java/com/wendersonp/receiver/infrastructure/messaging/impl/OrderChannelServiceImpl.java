@@ -21,7 +21,7 @@ public class OrderChannelServiceImpl implements OrderChannelService {
     }
 
     @Bean
-    public Supplier<OrderDTO> orderMessageSupplier() {
+    public Supplier<OrderDTO> autorizarVendaQueue() {
         return orderQueue::poll;
     }
 

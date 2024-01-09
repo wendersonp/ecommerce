@@ -8,10 +8,10 @@ spring:
 
   cloud:
     function:
-      definition: orderMessageSupplier
+      definition: autorizarVendaQueue
     stream:
       bindings:
-        orderMessageSupplier-out-0:
+        autorizarVendaQueue-out-0:
           destination: autorizar-venda-queue
           group: ${application.name}
           binder: rabbit
@@ -26,3 +26,13 @@ spring:
                 username: ${RABBITMQ_USERNAME:guest}
                 password: ${RABBITMQ_PASSWORD:guest}
                 virtual-host: /
+
+---
+spring:
+  config:
+    activate.on-profile: test
+  application.name: ecommerce-receiver
+
+  cloud:
+    function:
+      definition: autorizar-venda-queue

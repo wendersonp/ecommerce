@@ -5,6 +5,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.SneakyThrows;
 
 import java.io.InputStream;
+import java.util.List;
 
 public class Fixture<T> {
 
@@ -19,6 +20,18 @@ public class Fixture<T> {
     public T fromFile(String fileName, Class<T> type) {
         try (InputStream content = getClass().getClassLoader().getResourceAsStream(fileName)) {
             return objectMapper.readValue(content, type);
+        }
+    }
+
+    @SneakyThrows
+    public List<T> listFromFile(String fileName, Class<T> type) {
+        try (InputStream content = getClass().getClassLoader().getResourceAsStream(fileName)) {
+            return objectMapper.readValue(
+                    content,
+                    objectMapper
+                            .getTypeFactory()
+                            .constructCollectionType(List.class, type)
+            );
         }
     }
 }

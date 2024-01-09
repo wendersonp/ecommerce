@@ -3,7 +3,7 @@ package com.wendersonp.processor.infrastructure.client.channel.service.impl;
 import com.wendersonp.processor.domain.dto.InvoiceDTO;
 import com.wendersonp.processor.domain.dto.fixture.Fixture;
 import com.wendersonp.processor.domain.exception.ChannelCallbackException;
-import com.wendersonp.processor.infrastructure.client.channel.ChannelClient;
+import com.wendersonp.processor.infrastructure.client.channel.CallbackChannelClient;
 import feign.FeignException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,7 +19,7 @@ import static org.mockito.Mockito.*;
 class CallbackChannelServiceImplTest {
 
     @Mock
-    private ChannelClient client;
+    private CallbackChannelClient client;
 
     @InjectMocks
     private CallbackChannelServiceImpl service;

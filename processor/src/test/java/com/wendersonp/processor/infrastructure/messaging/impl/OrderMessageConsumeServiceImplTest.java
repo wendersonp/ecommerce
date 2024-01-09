@@ -36,7 +36,7 @@ class OrderMessageConsumeServiceImplTest {
     void orderMessageConsumerTest() {
         OrderDTO order = new Fixture<OrderDTO>()
                 .fromFile("static/order_valid.json", OrderDTO.class);
-        var consumer = service.orderMessageConsumer();
+        var consumer = service.autorizarVendaQueue();
         consumer.accept(order);
         verify(processorService, times(1)).process(order);
     }
