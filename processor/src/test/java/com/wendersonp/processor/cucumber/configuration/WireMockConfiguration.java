@@ -12,9 +12,9 @@ public class WireMockConfiguration {
     private WireMockServer server;
     @Before
     public void setUp() {
-        server = new WireMockServer(options().port(9000));
+        server = new WireMockServer(options().port(9001));
         server.start();
-        WireMock.configureFor("localhost", 9000);
+        WireMock.configureFor("localhost", 9001);
     }
 
     @After
