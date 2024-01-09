@@ -2,14 +2,23 @@
 
 Este pequeno sistema é dividido em dois serviços que são implementados por dois módulos. 
 Um módulo, chamado receiver, recebe uma ordem de venda, realiza validações nos campos e encaminha a ordem para o outro módulo,
-através de uma fila AMQP. O segundo módulo, recebe as ordens através da fila, e faz chamadas para receber a matriz de tributos,
-gerar a nota fiscal e realizar a comunicação do processamento da ordem, além de armazenar o estado de todo o processo da ordem.
+através de uma fila AMQP. O segundo módulo, recebe as ordens através da fila, faz chamadas para receber a matriz de tributos,
+gerar a nota fiscal e realizar a comunicação do processamento da ordem, além de armazenar o estado de todo o processo.
 
 Para acessar a documentação, faz-se necessário executar o serviço e acessar o endpoint:
 
 ```
 /swagger-ui/index.html#
 ```
+
+## Tecnologias utilizadas
+
+- Java 17: Implementação da aplicação
+- Spring Boot 3.2.1: Implementação da aplicação
+- Docker: Conteineres para execução da aplicação
+- Redis: Armazenamento de cache de tributos
+- PostgreSQL: Armazenamento de ordens
+- Wiremock 3.3.1: Testes e simulação dos endpoints integrados
 
 ## Requisitos
 
@@ -66,20 +75,16 @@ OpenAPI 3.0 da aplicação através de:
 http://localhost:8080/v3/api-docs
 ```
 
-Ou baixe a coleção do Postman pela documentação fornecida no início deste readme
-
 
 ### Inspecionando a fila no RabbitMQ
 
-1. Subindo a aplicação, é possível constatar que uma _exchange_ foi criada. Porém, para receber os resultados da votação,
-   é preciso configurar uma fila que ira ser ligada a exchange. Para isso, acesse o endereço (http://localhost:15672) e entre na página de gerenciamento
-   do RabbitMQ, e logue com as credenciais de username: **guest**, senha: **guest**.
+1. Para acessar as filas criadas e gerenciar o RabbitMQ, acesse o endereço (http://localhost:15672) e entre na página de gerenciamento. Logue com as credenciais de username: **guest**, senha: **guest**.
 2. Ao executar uma requisição corretamente, uma fila também deve ser criada conectando os serviços, esta fila pode ser acessada através
    da página **queue and streams**
 
 ### Monitorando o banco de dados
 
-A aplicação salva as ordens processadas, com ou sem erros, em um banco de dados POSTGRESQL.
+A aplicação salva as ordens processadas, com ou sem erros, em um banco de dados **POSTGRESQL**.
 Para acessa-lo, utilize a aplicação de gerenciamento de dados de sua preferência
 e utilize as seguintes credenciais para acessa-lo:
 
@@ -92,7 +97,7 @@ e utilize as seguintes credenciais para acessa-lo:
 ### Acessando o cache
 
 Para diminuir o número de requisições feitas ao endpoint de tributos, 
-a aplicação possui um cache utilizando o banco NoSQL Redis, os caches possuem um TTL de 5 minutos.
+a aplicação possui um cache utilizando o banco NoSQL **Redis**. Os caches possuem um TTL de 5 minutos.
 Para acessar o cache, pode-se utilizar a aplicação Redis Insight já fornecida em um dos containeres do docker.
 Para isso, acesse o link: http://localhost:8001. Utilize as seguintes credenciais para inspecionar as entradas criadas:
 

@@ -97,6 +97,6 @@ spring:
 #urls
 client:
   external:
-    tribute-item-url: http://localhost:9000
-    sefaz-url: localhost:9000
-    channel-url: http://localhost:9000
+    tribute-item-url: http://localhost:9001
+    sefaz-url: localhost:9001
+    channel-url: http://localhost:9001
