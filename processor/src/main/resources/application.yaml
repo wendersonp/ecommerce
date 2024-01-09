@@ -42,8 +42,10 @@ spring:
       bindings:
         autorizarVendaQueue-in-0:
           destination: autorizar-venda-queue
-          group: ${application.name}
+          group: ${spring.application.name}
           binder: rabbit
+          consumer:
+            maxAttempts: 1
       binders:
         rabbit:
           type: rabbit
